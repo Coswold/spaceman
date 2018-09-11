@@ -49,12 +49,16 @@ def correct_guess (guess, secret_word):
 			blanks[i] = guess;
 		i += 1;
 
-def win_lose (turns):
+def win_lose (turns, secret_word):
 	i = 0;
 	while i < len(blanks):
 		if blanks[i] == '_' and turns < 7:
 			return False;
 		i += 1;
+	if turns > 6:
+		print("\x1b[31mYou Lose!\x1b[0m The secret word was: " + secret_word);
+	else:
+		print("\x1b[32mYou Win!\x1b[0m");
 	return True;
 
 def clear ():
@@ -106,7 +110,7 @@ def game_loop ():
 	display_blank(secret_word);
 	print_spaceman(turns);
 	print_board(invalid_guess, turns);
-	while win_lose(turns) == False:
+	while win_lose(turns, secret_word) == False:
 		guess = user_guess();
 		if check_word(guess, secret_word) == True:
 			correct_guess(guess, secret_word);
